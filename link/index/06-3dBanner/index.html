@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>tongtong</title>
+    <style id="css">
+        * {
+            margin: 0;
+            padding: 0
+        }
+        li{
+            list-style: none;
+        }
+        body{
+        }
+        #box{
+            width: 800px;
+            height: 360px;
+            margin: 150px auto 0;
+            box-shadow: 0 0 10px #000;
+            perspective: 800px;
+        }
+        #box ul{height: 100%;}
+        #box ul li{
+            float:left;
+            position: relative;
+            width: 200px;
+            height: 360px;
+            transform-style: preserve-3d;
+            transition:1s;
+            box-sizing: border-box;
+            /*给父级，
+            把每个li抽出来*/
+            -transform-origin:center center -180px;
+            transform:translateZ(-180px);
+        }
+
+        #box ul li div{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #box ul li div:nth-child(1){
+            top:-360px;
+            background: url(img/1_proc.jpg);
+            transform-origin: bottom;
+            transform: translateZ(180px) rotateX(90deg);
+        }
+        #box ul li div:nth-child(2){
+            top:360px;
+            background: url(img/2_proc.jpg);
+            transform-origin: top;
+            transform: translateZ(180px) rotateX(-90deg);
+        }
+        #box ul li div:nth-child(3){
+            transform:translateZ(180px);
+            background: url(img/3_proc.jpg);
+        }
+        #box ul li div:nth-child(4){
+            transform:translateZ(-180px) rotateX(180deg);
+            background: url(img/4_proc.jpg);
+        }
+        #box ul li:nth-child(2) div{
+            background-position-x: -200px;
+        }
+        #box ul li:nth-child(3) div{
+            background-position-x: -400px;
+        }
+        #box ul li:nth-child(4) div{
+            background-position-x: -600px;
+        }
+        #box ol{
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            width: 140px;
+            height: 20px;
+            border: 1px solid ;
+            display: flex;
+            justify-content: space-around;
+        }
+        #box ol li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000;
+            box-shadow: 0 2px 5px white;
+            color: white;
+            font: 12px/20px 'Microsoft Yahei';
+            text-align: center;
+            cursor: pointer;
+        }
+        #box ol li.on{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul id="oUl"> </ul>
+        <ol>
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ol>
+    </div>
+   <script>
+       var oBtn = document.querySelectorAll('#box ol li');
+       var n = 0;
+       var timer;
+       for(var i=0;i<oBtn.length;i++){
+            oBtn[i].index = i;
+            oBtn[i].onclick=function(){
+                n=this.index;
+                for(var i=0;i<oBtn.length;i++){
+                    oBtn[i].className = '';
+                }
+                this.className = 'on';
+                css.innerHTML +='#box ul li{transform: translateZ(-180px) rotateX('+this.index*90+'deg) }'
+            }
+
+        }
+        box.onmouseenter=function(){
+            clearInterval(timer);
+        }
+        box.onmouseleave=function(){
+            play();
+        }
+         play();
+        function play(){
+            timer=setInterval(function(){
+
+                n++;
+                n%=4;
+                for(var i=0;i<oBtn.length;i++){
+                    oBtn[i].className = '';
+                }
+                oBtn[n].className = 'on';
+                console.log(oBtn[n].className)
+                css.innerHTML +='#box ul li{transform: translateZ(-180px) rotateX('+(n*90)+'deg) }';
+
+            },4000)
+
+        }
+        len(100);
+
+         function len(num){
+            var width = 800/num; //每个li的宽度
+            var uHTML = '';
+            var pHTML = '';
+            var zHTML = '';
+            var tHTML = '';
+            var z=0;
+            for(var i=0;i<num;i++){
+                if(i>=num/2){
+                    z--;
+                    zHTML += '#box ul li:nth-child('+(i+1)+'){z-index:'+z+'}'
+                }
+                uHTML +='<li><div></div><div></div><div></div><div></div></li>';
+                pHTML += '#box ul li:nth-child('+(i+1)+') div{background-position-x: '+(-i*width)+'px;}';
+                tHTML += '#box ul li:nth-child('+(i+1)+'){transition:0.5s '+(0.03*i)+'s}'
+            }
+
+            oUl.innerHTML = uHTML;
+            css.innerHTML += pHTML +zHTML+ tHTML+'#box ul li,#box ul li div{width:'+width+'px;height:100%}';
+
+        }
+   </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
