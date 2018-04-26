@@ -1,2 +1,4 @@
-# Colada-Blog
-个人网站正在更新中
+# 关于Colada - Blog
+一个不完整的博客，天天在更新。请戳...
+An unintegrated blog is updating everyday,please clicking ...
+https://coladacoder.github.io/Colada-Blog/
